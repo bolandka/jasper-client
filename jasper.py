@@ -26,6 +26,7 @@ parser.add_argument('--no-network-check', action='store_true',
 parser.add_argument('--diagnose', action='store_true',
                     help='Run diagnose and exit')
 parser.add_argument('--debug', action='store_true', help='Show debug messages')
+parser.add_argument('--rank', action='store_true', help='Rank speaker according to his wilkoishness')
 args = parser.parse_args()
 
 if args.local:
@@ -118,7 +119,7 @@ class Jasper(object):
         self.mic.say(salutation)
 
         conversation = Conversation("JASPER", self.mic, self.config)
-        conversation.handleForever()
+        conversation.handleForever(args.rank)
 
 if __name__ == "__main__":
 

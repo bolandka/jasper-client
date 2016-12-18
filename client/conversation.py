@@ -3,6 +3,7 @@ import logging
 from brain import Brain
 import time
 import wpm
+import wilkoscore
 
 class Conversation(object):
 
@@ -12,8 +13,8 @@ class Conversation(object):
         self.mic = mic
         self.profile = profile
         self.brain = Brain(mic, profile)
-
-    def handleForever(self):
+    
+    def handleForever(self, rankWilkoishness=False):
         """
         Delegates user input to the handling function.
         """
@@ -30,4 +31,7 @@ class Conversation(object):
             if input:
                 if input[0]:
                     end = time.clock()
-                    wpm.run(start, end, input, self.mic)
+                    if rankWilkoishness:
+                        wilkoscore.run(wpm.computeWpm)
+                    else:
+                        wpm.run(start, end, input, self.mic)
