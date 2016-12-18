@@ -1,8 +1,8 @@
 # -*- coding: utf-8-*-
 import logging
-from notifier import Notifier
 from brain import Brain
-
+import time
+import wpm
 
 class Conversation(object):
 
@@ -12,7 +12,6 @@ class Conversation(object):
         self.mic = mic
         self.profile = profile
         self.brain = Brain(mic, profile)
-        self.notifier = Notifier(profile)
 
     def handleForever(self):
         """
@@ -21,10 +20,13 @@ class Conversation(object):
 
         while True:              
             threshold = None
+
+            start = time.clock()
+    
             input = self.mic.activeListenToAllOptions(threshold)
             self._logger.debug("Stopped to listen actively with threshold: %r",
                                threshold)
 
             if input:
-                self.brain.query(input)
-
+                end = time.clock()
+                wpm.run(start, end, input, self.mic)
