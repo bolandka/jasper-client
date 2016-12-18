@@ -65,3 +65,10 @@ target/
 
 # SublimeLinter config file
 .sublimelinterrc
+
+# config files and automatically generated content
+config/vocabularies/
+config/profile.yml
+
+# gedit backup files
+*.*~
