@@ -269,6 +269,16 @@ class PocketsphinxVocabulary(AbstractVocabulary):
         vocabulary = self._compile_languagemodel(text, self.languagemodel_file)
         self._logger.debug('Starting dictionary...')
         self._compile_dictionary(vocabulary, self.dictionary_file)
+        """if self.name == "keyword":
+            text = " ".join([("<s> %s </s>" % phrase) for phrase in phrases])
+            self._logger.debug('Compiling languagemodel...')#blubb
+            vocabulary = self._compile_languagemodel(text, self.languagemodel_file)#blubb
+            self._logger.debug('Starting dictionary...')
+            self._compile_dictionary(vocabulary, self.dictionary_file)
+        else:
+            shutil.copy(jasperpath.data("dictionary_all.dic"), self.dictionary_file)
+            shutil.copy(jasperpath.data("languagemodel.fst"), self.languagemodel_file)
+        """
 
     def _compile_languagemodel(self, text, output_file):
         """
@@ -476,19 +486,6 @@ class JuliusVocabulary(AbstractVocabulary):
         shutil.rmtree(tmpdir)
 
 
-def get_phrases_from_module(module):
-    """
-    Gets phrases from a module.
-
-    Arguments:
-        module -- a module reference
-
-    Returns:
-        The list of phrases in this module.
-    """
-    return module.WORDS if hasattr(module, 'WORDS') else []
-
-
 def get_keyword_phrases():
     """
     Gets the keyword phrases from the keywords file in the jasper data dir.
@@ -508,18 +505,12 @@ def get_keyword_phrases():
 
 
 def get_all_phrases():
-    """
-    Gets phrases from all modules.
-
-    Returns:
-        A list of phrases in all modules plus additional phrases passed to this
-        function.
-    """
     phrases = []
-
-    modules = brain.Brain.get_modules()
-    for module in modules:
-        phrases.extend(get_phrases_from_module(module))
+    with open(jasperpath.data('all_phrases'), mode="r") as f:
+        for line in f:
+            phrase = line.strip()
+            if phrase:
+                phrases.append(phrase)
 
     return sorted(list(set(phrases)))
 
