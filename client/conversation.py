@@ -28,5 +28,6 @@ class Conversation(object):
                                threshold)
 
             if input:
-                end = time.clock()
-                wpm.run(start, end, input, self.mic)
+                if input[0]:
+                    end = time.clock()
+                    wpm.run(start, end, input, self.mic)
