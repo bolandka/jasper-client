@@ -16,7 +16,7 @@ import shutil
 from abc import ABCMeta, abstractmethod, abstractproperty
 import yaml
 
-import brain
+
 import jasperpath
 
 from g2p import PhonetisaurusG2P
@@ -186,7 +186,7 @@ class AbstractVocabulary(object):
 
 class DummyVocabulary(AbstractVocabulary):
 
-    PATH_PREFIX = 'dummy-vocabulary'
+    PATH_PREFIX = 'custom-vocabulary'
 
     @property
     def is_compiled(self):
@@ -224,6 +224,13 @@ class PocketsphinxVocabulary(AbstractVocabulary):
         Returns:
             The path of the pocketsphinx dictionary file as string
         """
+        profile_path = jasperpath.config('profile.yml')
+        if os.path.exists(profile_path):
+            with open(profile_path, 'r') as f:
+                profile = yaml.safe_load(f)
+                if 'pocketsphinx' in profile:
+                    if 'dictionary' in profile['pocketsphinx']:
+                        return profile['pocketsphinx']['dictionary']
         return os.path.join(self.path, 'dictionary')
 
     @property
@@ -235,9 +242,7 @@ class PocketsphinxVocabulary(AbstractVocabulary):
         Returns:
             True if this vocabulary has been compiled, else False
         """
-        return (super(self.__class__, self).is_compiled and
-                os.access(self.languagemodel_file, os.R_OK) and
-                os.access(self.dictionary_file, os.R_OK))
+        return False
 
     @property
     def decoder_kwargs(self):
@@ -267,18 +272,19 @@ class PocketsphinxVocabulary(AbstractVocabulary):
         text = " ".join([("<s> %s </s>" % phrase) for phrase in phrases])
         self._logger.debug('Compiling languagemodel...')
         vocabulary = self._compile_languagemodel(text, self.languagemodel_file)
-        self._logger.debug('Starting dictionary...')
-        self._compile_dictionary(vocabulary, self.dictionary_file)
-        """if self.name == "keyword":
-            text = " ".join([("<s> %s </s>" % phrase) for phrase in phrases])
-            self._logger.debug('Compiling languagemodel...')#blubb
-            vocabulary = self._compile_languagemodel(text, self.languagemodel_file)#blubb
+        
+        profile_path = jasperpath.config('profile.yml')
+        needToCompileDictionary = True
+        if os.path.exists(profile_path):
+            with open(profile_path, 'r') as f:
+                profile = yaml.safe_load(f)
+                if 'pocketsphinx' in profile:
+                    if 'dictionary' in profile['pocketsphinx']:
+                        print "using dictionary " + profile['pocketsphinx']['dictionary']
+                        needToCompileDictionary = False
+        if needToCompileDictionary:
             self._logger.debug('Starting dictionary...')
             self._compile_dictionary(vocabulary, self.dictionary_file)
-        else:
-            shutil.copy(jasperpath.data("dictionary_all.dic"), self.dictionary_file)
-            shutil.copy(jasperpath.data("languagemodel.fst"), self.languagemodel_file)
-        """
 
     def _compile_languagemodel(self, text, output_file):
         """

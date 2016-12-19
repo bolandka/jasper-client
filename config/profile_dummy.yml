@@ -8,13 +8,15 @@ phone_number: ''
 prefers_email: true
 stt_engine: sphinx
 pocketsphinx:
-  #fst_model: '../jasper-model/en-70k-0.2.fst'
-  #fst_model: '../jasper-model/voxforge-de-r20141117/etc/voxforge.lm.DMP'
-  #fst_model: '../jasper-model/voxforge-de-0.1/etc/voxforge_de_sphinx.lm'
-  #hmm_dir: '../jasper-model/voxforge-de-r20141117/model_parameters/voxforge.cd_cont_3000/'
+  language_model: '../jasper-model/voxforge-de-r20141117/etc/voxforge.lm.DMP'
+  hmm_dir: '../jasper-model/voxforge-de-r20141117/model_parameters/voxforge.cd_cont_3000/'
   #hmm_dir: '../jasper-model/voxforge-de-0.1/model_parameters/voxforge_de_sphinx.cd_cont_3000/'
   #hmm_dir: '../jasper-model/cmusphinx-en-us-8khz-5.2'
-  hmm_dir: '../jasper-model/hmm/en_US/hub4wsj_sc_8k'
+  #hmm_dir: '../jasper-model/hmm/en_US/hub4wsj_sc_8k'
+  #hmm_dir: '../jasper-model/cmusphinx-en-us-ptm-8khz-5.2'
+  #hmm_dir: '../jasper-model/cmusphinx-en-us-ptm-5.2'
+  dictionary: 'static/dictionary_all_de.dic'
+  #dictionary: 'static/dictionary_all_en.dic'
 
 timezone: Europe/Berlin
 tts_engine: pico-tts
