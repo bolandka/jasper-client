@@ -8,18 +8,18 @@ phone_number: ''
 prefers_email: true
 stt_engine: sphinx
 pocketsphinx:
-  language_model: '../jasper-model/voxforge-de-r20141117/etc/voxforge.lm.DMP'
-  hmm_dir: '../jasper-model/voxforge-de-r20141117/model_parameters/voxforge.cd_cont_3000/'
-  #hmm_dir: '../jasper-model/voxforge-de-0.1/model_parameters/voxforge_de_sphinx.cd_cont_3000/'
+  #language_model: '../jasper-model/voxforge-de-r20141117/etc/voxforge.lm.DMP'
+  language_model: '../jasper-model/voxforge-de-0.1/etc/voxforge_de_sphinx.lm'
+  #language_model: '../jasper-model/en-70k-0.1.lm.DMP'
+  #hmm_dir: '../jasper-model/voxforge-de-r20141117/model_parameters/voxforge.cd_cont_3000/'
+  hmm_dir: '../jasper-model/voxforge-de-0.1/model_parameters/voxforge_de_sphinx.cd_cont_3000/'
   #hmm_dir: '../jasper-model/cmusphinx-en-us-8khz-5.2'
   #hmm_dir: '../jasper-model/hmm/en_US/hub4wsj_sc_8k'
   #hmm_dir: '../jasper-model/cmusphinx-en-us-ptm-8khz-5.2'
   #hmm_dir: '../jasper-model/cmusphinx-en-us-ptm-5.2'
-  dictionary: '../jasper-model/voxforge-de-r20141117/etc/voxforge.dic'
-  #dictionary: '../jasper-model/voxforge-de-0.1/etc/voxforge_de_sphinx.dic'
+  #dictionary: '../jasper-model/voxforge-de-r20141117/etc/voxforge.dic'
+  dictionary: '../jasper-model/voxforge-de-0.1/etc/voxforge_de_sphinx.dic'
   #dictionary: '../jasper-model/cmudict_SPHINX_40'
-  
-
 timezone: Europe/Berlin
 tts_engine: pico-tts
 
