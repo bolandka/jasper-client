@@ -3,6 +3,7 @@ import logging
 import time
 import wpm
 import wilkoscore
+import zeljko
 
 class Conversation(object):
 
@@ -12,7 +13,7 @@ class Conversation(object):
         self.mic = mic
         self.profile = profile
     
-    def handleForever(self, rankWilkoishness=False):
+    def handleForever(self, rankWilkoishness=False, imitateZeljko=False):
         """
         Delegates user input to the handling function.
         """
@@ -30,6 +31,8 @@ class Conversation(object):
                 if input[0]:
                     end = time.clock()
                     if rankWilkoishness:
-                        wilkoscore.run(wpm.computeWpm)
+                        wilkoscore.run(wpm.computeWpm(start, end, input, self.mic))
+                    if imitateZeljko:
+                        zeljko.run(self.mic)
                     else:
                         wpm.run(start, end, input, self.mic)
