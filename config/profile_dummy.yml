@@ -15,8 +15,10 @@ pocketsphinx:
   #hmm_dir: '../jasper-model/hmm/en_US/hub4wsj_sc_8k'
   #hmm_dir: '../jasper-model/cmusphinx-en-us-ptm-8khz-5.2'
   #hmm_dir: '../jasper-model/cmusphinx-en-us-ptm-5.2'
-  dictionary: 'static/dictionary_all_de.dic'
-  #dictionary: 'static/dictionary_all_en.dic'
+  dictionary: '../jasper-model/voxforge-de-r20141117/etc/voxforge.dic'
+  #dictionary: '../jasper-model/voxforge-de-0.1/etc/voxforge_de_sphinx.dic'
+  #dictionary: '../jasper-model/cmudict_SPHINX_40'
+  
 
 timezone: Europe/Berlin
 tts_engine: pico-tts
