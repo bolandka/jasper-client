@@ -1,6 +1,5 @@
 # -*- coding: utf-8-*-
 import logging
-from brain import Brain
 import time
 import wpm
 import wilkoscore
@@ -12,7 +11,6 @@ class Conversation(object):
         self.persona = persona
         self.mic = mic
         self.profile = profile
-        self.brain = Brain(mic, profile)
     
     def handleForever(self, rankWilkoishness=False):
         """
