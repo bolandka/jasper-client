@@ -31,6 +31,7 @@ parser.add_argument('--transcribe', action='store_true', help='Show transcriptio
 parser.add_argument('--rank', action='store_true', help='Rank speaker according to his wilkoishness')
 parser.add_argument('--zeljko', action='store_true', help='Imitate Zeljkos behaviour')
 parser.add_argument('--simon', action='store_true', help='Get the good old WTS-Wiki Jokes of the Day')
+parser.add_argument('--kataUndBen', action='store_true', help='Notify the Stammtisch organizers that you are thirsty')
 args = parser.parse_args()
 
 if args.local:
@@ -127,7 +128,7 @@ class Jasper(object):
         self.mic.say(salutation)
 
         conversation = Conversation("JASPER", self.mic, self.config)
-        conversation.handleForever(args.rank, args.zeljko)
+        conversation.handleForever(args.rank, args.zeljko, args.kataUndBen)
 
 if __name__ == "__main__":
 
