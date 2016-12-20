@@ -14,6 +14,7 @@ from client import stt
 from client import jasperpath
 from client import diagnose
 from client.conversation import Conversation
+import simon
 
 # Add jasperpath.LIB_PATH to sys.path
 sys.path.append(jasperpath.LIB_PATH)
@@ -29,6 +30,7 @@ parser.add_argument('--debug', action='store_true', help='Show debug messages')
 parser.add_argument('--transcribe', action='store_true', help='Show transcriptions')
 parser.add_argument('--rank', action='store_true', help='Rank speaker according to his wilkoishness')
 parser.add_argument('--zeljko', action='store_true', help='Imitate Zeljkos behaviour')
+parser.add_argument('--simon', action='store_true', help='Get the good old WTS-Wiki Jokes of the Day')
 args = parser.parse_args()
 
 if args.local:
@@ -113,6 +115,10 @@ class Jasper(object):
                        stt_engine_class.get_active_instance())
 
     def run(self):
+    
+        if args.simon:
+            return simon.run(self.mic)
+            
         if 'first_name' in self.config:
             salutation = ("How can I be of service, %s?"
                           % self.config["first_name"])
