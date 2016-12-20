@@ -11,3 +11,7 @@ def run(mic=None):
     if mic:
         mic.say(joke, "en-US")
     print joke
+    
+
+if __name__=="__main__":
+    run()
