@@ -26,6 +26,7 @@ parser.add_argument('--no-network-check', action='store_true',
 parser.add_argument('--diagnose', action='store_true',
                     help='Run diagnose and exit')
 parser.add_argument('--debug', action='store_true', help='Show debug messages')
+parser.add_argument('--transcribe', action='store_true', help='Show transcriptions')
 parser.add_argument('--rank', action='store_true', help='Rank speaker according to his wilkoishness')
 parser.add_argument('--zeljko', action='store_true', help='Imitate Zeljkos behaviour')
 args = parser.parse_args()
@@ -131,10 +132,13 @@ if __name__ == "__main__":
 
     logging.basicConfig()
     logger = logging.getLogger()
-    logger.getChild("client.stt").setLevel(logging.INFO)
+    
+    if args.transcribe:
+        logger.getChild("client.stt").setLevel(logging.INFO)
 
     if args.debug:
         logger.setLevel(logging.DEBUG)
+
 
     if not args.no_network_check and not diagnose.check_network_connection():
         logger.warning("Network not connected. This may prevent Jasper from " +
