@@ -395,7 +395,9 @@ class PicoTTS(AbstractTTSEngine):
         langs = matchobj.group(1).split()
         return langs
 
-    def say(self, phrase):
+    def say(self, phrase, language=None):
+        if language:
+            self.language = language
         self._logger.debug("Saying '%s' with '%s'", phrase, self.SLUG)
         with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as f:
             fname = f.name

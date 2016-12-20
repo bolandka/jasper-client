@@ -1,9 +1,9 @@
 import random
 
 def run(mic=None):
-    vocabulary = ["Mmh.", "Oh, echt?", "Das habe ich jetzt nicht verstanden, kannst du noch mal wiederholen?", "Red mal langsamer!", "Aaaalter!", "Achso.", "Verstehe.", "Sehr interessant.", "Ja, macht schon Sinn", "Das verstehe ich jetzt nicht"]
+    vocabulary = ["Mmh.", "Oh, echt?", "Das verstehe ich nicht.", "Red mal langsamer!", "Aaaalter!", "Aaaalter, krass!", "Achso.", "Verstehe.", "Sehr interessant.", "Ja, macht schon Sinn.", "Hahaha.", "ed bruddla - buddla"]
     answer= random.choice(vocabulary)
     if mic:
-        mic.say(answer)
+        mic.say(answer, "de-DE")
     print answer
     
