@@ -19,7 +19,7 @@ import simon
 # Add jasperpath.LIB_PATH to sys.path
 sys.path.append(jasperpath.LIB_PATH)
 
-parser = argparse.ArgumentParser(description='Jasper Voice Control Center')
+parser = argparse.ArgumentParser(description='Pocket Companion Control Center')
 parser.add_argument('--local', action='store_true',
                     help='Use text input instead of a real microphone')
 parser.add_argument('--no-network-check', action='store_true',
@@ -59,25 +59,7 @@ class Jasper(object):
                                   "won't work correctly.",
                                   jasperpath.CONFIG_PATH)
 
-        # FIXME: For backwards compatibility, move old config file to newly
-        #        created config dir
-        old_configfile = os.path.join(jasperpath.LIB_PATH, 'profile.yml')
         new_configfile = jasperpath.config('profile.yml')
-        if os.path.exists(old_configfile):
-            if os.path.exists(new_configfile):
-                self._logger.warning("Deprecated profile file found: '%s'. " +
-                                     "Please remove it.", old_configfile)
-            else:
-                self._logger.warning("Deprecated profile file found: '%s'. " +
-                                     "Trying to copy it to new location '%s'.",
-                                     old_configfile, new_configfile)
-                try:
-                    shutil.copy2(old_configfile, new_configfile)
-                except shutil.Error:
-                    self._logger.error("Unable to copy config file. " +
-                                       "Please copy it manually.",
-                                       exc_info=True)
-                    raise
 
         # Read config
         self._logger.debug("Trying to read config file: '%s'", new_configfile)
@@ -133,8 +115,8 @@ class Jasper(object):
 if __name__ == "__main__":
 
     print("*******************************************************")
-    print("*             JASPER - THE TALKING COMPUTER           *")
-    print("* (c) 2015 Shubhro Saha, Charlie Marsh & Jan Holthuis *")
+    print("*               WILKO'S POCKET COMPANION              *")
+    print("*                         <3                          *")
     print("*******************************************************")
 
     logging.basicConfig()
