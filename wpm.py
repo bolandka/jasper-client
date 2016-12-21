@@ -31,7 +31,7 @@ def computeWpm(start, end, input, mic=None):
         wps = float(num_words) / duration_second
         wpm = float(num_words) / duration_minute
     
-    message = "You needed %1.2f seconds to speak %d word(s) = %1.2f words per second = %1.2f words per minute!" %(duration_second, num_words, wps, wpm)
+    message = "You spoke %1.2f words per second = %1.2f words per minute!" %(wps, wpm)
     print message
     if mic:
         mic.say(message)
