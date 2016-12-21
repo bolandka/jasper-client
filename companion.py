@@ -32,6 +32,7 @@ parser.add_argument('--rank', action='store_true', help='Rank speaker according 
 parser.add_argument('--zeljko', action='store_true', help='Imitate Zeljkos behaviour')
 parser.add_argument('--simon', action='store_true', help='Get the good old WTS-Wiki Jokes of the Day')
 parser.add_argument('--kataUndBen', action='store_true', help='Notify the Stammtisch organizers that you are thirsty')
+parser.add_argument('--matt', action='store_true', help='Get some sound advice by git master Matt')
 args = parser.parse_args()
 
 if args.local:
@@ -40,7 +41,7 @@ else:
     from client.mic import Mic
 
 
-class Jasper(object):
+class Companion(object):
     def __init__(self):
         self._logger = logging.getLogger(__name__)
 
@@ -55,7 +56,7 @@ class Jasper(object):
 
         # Check if config dir is writable
         if not os.access(jasperpath.CONFIG_PATH, os.W_OK):
-            self._logger.critical("Config dir %s is not writable. Jasper " +
+            self._logger.critical("Config dir %s is not writable. Pocket companion " +
                                   "won't work correctly.",
                                   jasperpath.CONFIG_PATH)
 
@@ -109,8 +110,8 @@ class Jasper(object):
             salutation = "How can I be of service?"
         self.mic.say(salutation)
 
-        conversation = Conversation("JASPER", self.mic, self.config)
-        conversation.handleForever(args.rank, args.zeljko, args.kataUndBen)
+        conversation = Conversation("COMPANION", self.mic, self.config)
+        conversation.handleForever(args.rank, args.zeljko, args.kataUndBen, args.matt)
 
 if __name__ == "__main__":
 
@@ -130,7 +131,7 @@ if __name__ == "__main__":
 
 
     if not args.no_network_check and not diagnose.check_network_connection():
-        logger.warning("Network not connected. This may prevent Jasper from " +
+        logger.warning("Network not connected. This may prevent the pocket companion from " +
                        "running properly.")
 
     if args.diagnose:
@@ -138,7 +139,7 @@ if __name__ == "__main__":
         sys.exit(0 if not failed_checks else 1)
 
     try:
-        app = Jasper()
+        app = Companion()
     except Exception:
         logger.error("Error occured!", exc_info=True)
         sys.exit(1)

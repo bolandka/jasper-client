@@ -5,6 +5,7 @@ import wpm
 import wilkoscore
 import zeljko
 import kataUndBen
+import matt
 
 class Conversation(object):
 
@@ -14,7 +15,7 @@ class Conversation(object):
         self.mic = mic
         self.profile = profile
     
-    def handleForever(self, rankWilkoishness=False, imitateZeljko=False, contactKataAndBen=False):
+    def handleForever(self, rankWilkoishness=False, imitateZeljko=False, contactKataAndBen=False, askMatt=False):
         """
         Delegates user input to the handling function.
         """
@@ -33,9 +34,11 @@ class Conversation(object):
                     end = time.clock()
                     if rankWilkoishness:
                         wilkoscore.run(wpm.computeWpm(start, end, input, self.mic))
-                    if imitateZeljko:
+                    elif imitateZeljko:
                         zeljko.run(self.mic)
-                    if contactKataAndBen:
+                    elif askMatt:
+                        matt.run(input[0], self.mic)
+                    elif contactKataAndBen:
                         return kataUndBen.run(input[0], self.mic)
                     else:
                         wpm.run(start, end, input, self.mic)
