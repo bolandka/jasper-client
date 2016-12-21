@@ -16,6 +16,7 @@ from client import diagnose
 from client.conversation import Conversation
 import simon
 import daniel
+import nostalgie
 
 # Add jasperpath.LIB_PATH to sys.path
 sys.path.append(jasperpath.LIB_PATH)
@@ -35,6 +36,7 @@ parser.add_argument('--simon', action='store_true', help='Get the good old WTS-W
 parser.add_argument('--kataUndBen', action='store_true', help='Notify the Stammtisch organizers that you are thirsty')
 parser.add_argument('--matt', action='store_true', help='Get some sound advice by git master Matt')
 parser.add_argument('--daniel', action='store_true', help='Activate the Daniel ambient engine')
+parser.add_argument('--nostalgie', action='store_true', help='Nostalgia: in rememberance of the great WTS choir')
 args = parser.parse_args()
 
 if args.local:
@@ -108,6 +110,9 @@ class Companion(object):
         if args.daniel:
             return daniel.run(self.mic)
     
+        if args.nostalgie:
+            return nostalgie.run()
+
         if 'first_name' in self.config:
             salutation = ("How can I be of service, %s?"
                           % self.config["first_name"])
